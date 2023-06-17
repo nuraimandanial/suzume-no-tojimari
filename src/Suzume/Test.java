@@ -2,7 +2,7 @@ package Suzume;
 
 import java.util.List;
 
-import javax.swing.SwingUtilities;
+// import javax.swing.SwingUtilities;
 
 public class Test {
   public static void main(String[] args) {
@@ -69,10 +69,14 @@ public class Test {
       System.out.println("\b\b ]\n");
     }
 
-    SwingUtilities.invokeLater(() -> {
-      MapGUI mapGUI = new MapGUI(combinedMap, imageReader.getDirectory());
-      mapGUI.delay(3);
-      mapGUI.setVisible(true);
-    });
+    // SwingUtilities.invokeLater(() -> {
+    //   MapGUI mapGUI = new MapGUI(combinedMap, imageReader.getDirectory());
+    //   mapGUI.delay(3);
+    //   mapGUI.setVisible(true);
+    // });
+
+    MapInterface mapInterface = new MapInterface(combinedMap, imageReader.getDirectory());
+    mapInterface.setVisible(true);
+    mapInterface.readPath(paths.get(0));
   }
 }
