@@ -1,5 +1,7 @@
 package Suzume;
 
+import java.util.List;
+
 import javax.swing.SwingUtilities;
 
 public class Test {
@@ -55,6 +57,17 @@ public class Test {
     System.out.println("Additional First Search Algorithm :-");
     System.out.println("    Bidirectional Search                     : " + fs.bdsPath(combinedMap) + " path(s)");
     fs.iddfsPath(combinedMap);
+    System.out.println();
+
+    List<List<String>> paths = fs.getAllPaths();
+    System.out.println("All Shortest Paths :-");
+    for (int i = 0; i < paths.size(); i++) {
+      System.out.print("Path " + (i + 1) + " : " + paths.get(i).size() + " step(s)\n[ ");
+      for (int j = 0; j < paths.get(i).size(); j++) {
+        System.out.print(paths.get(i).get(j) + ", ");
+      }
+      System.out.println("\b\b ]\n");
+    }
 
     SwingUtilities.invokeLater(() -> {
       MapGUI mapGUI = new MapGUI(combinedMap, imageReader.getDirectory());

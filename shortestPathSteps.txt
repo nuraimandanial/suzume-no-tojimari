@@ -1,0 +1,17 @@
+Path 1 : 62 step(s)
+[ Down, Down, Down, Down, Down, Down, Down, Down, Down, Down, Down, Down, Down, Down, Down, Down, Down, Down, Down, Down, Right, Right, Right, Right, Right, Down, Down, Down, Right, Right, Right, Down, Down, Down, Down, Down, Left, Down, Down, Right, Down, Down, Right, Down, Down, Right, Down, Down, Down, Down, Right, Right, Right, Down, Right, Right, Up, Right, Right, Right, Down, Right ]
+
+Path 2 : 62 step(s)
+[ Down, Down, Down, Down, Down, Down, Down, Down, Down, Down, Down, Down, Down, Down, Down, Down, Down, Down, Down, Down, Right, Right, Right, Right, Right, Down, Down, Down, Right, Right, Right, Down, Down, Down, Down, Down, Left, Down, Down, Right, Down, Down, Right, Down, Right, Down, Down, Down, Down, Down, Right, Right, Right, Down, Right, Right, Up, Right, Right, Right, Down, Right ]
+
+Path 3 : 62 step(s)
+[ Down, Down, Down, Down, Down, Down, Down, Down, Down, Down, Down, Down, Down, Down, Down, Down, Down, Down, Down, Down, Right, Right, Right, Right, Right, Down, Down, Down, Right, Right, Right, Down, Down, Down, Down, Down, Left, Down, Down, Right, Down, Down, Right, Right, Down, Down, Down, Down, Down, Down, Right, Right, Right, Down, Right, Right, Up, Right, Right, Right, Down, Right ]
+
+Path 4 : 62 step(s)
+[ Down, Down, Down, Down, Down, Down, Down, Down, Down, Down, Down, Down, Down, Down, Down, Down, Down, Down, Down, Down, Right, Right, Right, Right, Right, Down, Right, Right, Down, Down, Right, Down, Down, Down, Down, Down, Left, Down, Down, Right, Down, Down, Right, Down, Down, Right, Down, Down, Down, Down, Right, Right, Right, Down, Right, Right, Up, Right, Right, Right, Down, Right ]
+
+Path 5 : 62 step(s)
+[ Down, Down, Down, Down, Down, Down, Down, Down, Down, Down, Down, Down, Down, Down, Down, Down, Down, Down, Down, Down, Right, Right, Right, Right, Right, Down, Right, Right, Down, Down, Right, Down, Down, Down, Down, Down, Left, Down, Down, Right, Down, Down, Right, Down, Right, Down, Down, Down, Down, Down, Right, Right, Right, Down, Right, Right, Up, Right, Right, Right, Down, Right ]
+
+Path 6 : 62 step(s)
+[ Down, Down, Down, Down, Down, Down, Down, Down, Down, Down, Down, Down, Down, Down, Down, Down, Down, Down, Down, Down, Right, Right, Right, Right, Right, Down, Right, Right, Down, Down, Right, Down, Down, Down, Down, Down, Left, Down, Down, Right, Down, Down, Right, Right, Down, Down, Down, Down, Down, Down, Right, Right, Right, Down, Right, Right, Up, Right, Right, Right, Down, Right ]

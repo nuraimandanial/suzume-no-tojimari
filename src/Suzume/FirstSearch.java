@@ -181,12 +181,15 @@ public class FirstSearch {
   int minDepth = Integer.MAX_VALUE;
   int maxDepth = Integer.MIN_VALUE;
 
+  private List<List<String>> allPaths = new ArrayList<>();
+
   public void iddfsPath(Node[][] map) {
     boolean[][] visited = new boolean[map.length][map[0].length];
 
-    int lock = 0; int limit = dfsPath(map);
-    
-    for (int i = 50; i < 200; i+=2) {
+    int lock = 0;
+    int limit = dfsPath(map);
+
+    for (int i = 50; i < 200; i += 2) {
       int test = dfsDepth(map, 0, 0, 0, i, visited);
       if (test > 0 && lock == 0) {
         minDepth = i;
@@ -202,7 +205,8 @@ public class FirstSearch {
       }
     }
     pathCount = dfsDepth(map, 0, 0, 0, minDepth, visited);
-    
+    dfsSteps(map, 0, 0, 0, minDepth, visited, new ArrayList<>());
+
     System.out.println("    Iterative Deepening DFS (Shortest Path)  : " + pathCount + " path(s)");
     System.out.println("        Minimum Steps : " + minDepth);
     System.out.println("        Maximum Steps : " + maxDepth);
@@ -260,5 +264,71 @@ public class FirstSearch {
     node.setVisited(false);
     visited[row][column] = false;
     return pathCount;
+  }
+
+  private void dfsSteps(Node[][] map, int row, int column, int stations, int depthLimit, boolean[][] visited,
+      List<String> paths) {
+    Node node = map[row][column];
+
+    if (node.getValue() == 3 && stations == targetStations) {
+      allPaths.add(new ArrayList<>(paths));
+      return;
+    }
+
+    if (stations > targetStations) {
+      return;
+    }
+
+    node.setVisited(true);
+    visited[row][column] = true;
+
+    if (depthLimit > 0) {
+      if (row > 0) {
+        Node upNode = node.getUp();
+        if (!upNode.isObstacle() && !visited[row - 1][column]) {
+          paths.add("Up");
+          dfsSteps(map, row - 1, column, stations + (upNode.getValue() == 2 ? 1 : 0),
+              depthLimit - 1, visited, paths);
+          paths.remove(paths.size() - 1);
+        }
+      }
+
+      if (row < map.length - 1) {
+        Node downNode = node.getDown();
+        if (!downNode.isObstacle() && !visited[row + 1][column]) {
+          paths.add("Down");
+          dfsSteps(map, row + 1, column, stations + (downNode.getValue() == 2 ? 1 : 0),
+              depthLimit - 1, visited, paths);
+          paths.remove(paths.size() - 1);
+        }
+      }
+
+      if (column > 0) {
+        Node leftNode = node.getLeft();
+        if (!leftNode.isObstacle() && !visited[row][column - 1]) {
+          paths.add("Left");
+          dfsSteps(map, row, column - 1, stations + (leftNode.getValue() == 2 ? 1 : 0),
+              depthLimit - 1, visited, paths);
+          paths.remove(paths.size() - 1);
+        }
+      }
+
+      if (column < map[0].length - 1) {
+        Node rightNode = node.getRight();
+        if (!rightNode.isObstacle() && !visited[row][column + 1]) {
+          paths.add("Right");
+          dfsSteps(map, row, column + 1, stations + (rightNode.getValue() == 2 ? 1 : 0),
+              depthLimit - 1, visited, paths);
+          paths.remove(paths.size() - 1);
+        }
+      }
+    }
+
+    node.setVisited(false);
+    visited[row][column] = false;
+  }
+
+  public List<List<String>> getAllPaths() {
+    return allPaths;
   }
 }
