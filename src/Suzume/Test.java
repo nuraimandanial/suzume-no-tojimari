@@ -75,8 +75,7 @@ public class Test {
     //   mapGUI.setVisible(true);
     // });
 
-    MapInterface mapInterface = new MapInterface(combinedMap, imageReader.getDirectory());
+    MapInterface mapInterface = new MapInterface(combinedMap, imageReader.getDirectory(), paths);
     mapInterface.setVisible(true);
-    mapInterface.readPath(paths.get(0));
   }
 }

@@ -5,10 +5,10 @@ public class TicTacToe {
   private int size;
   private Engine engine;
 
-  public TicTacToe(int size) {
+  public TicTacToe(int size, Difficulty d) {
     this.size = size;
     this.board = new int[size][size];
-    this.engine = new Engine(Difficulty.MEDIUM);
+    this.engine = new Engine(d);
   }
 
   public void move(int x, int y, int player) {

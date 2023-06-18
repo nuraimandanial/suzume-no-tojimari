@@ -12,8 +12,10 @@ public class Node {
   public Node(int row, int column, int value) {
     this.row = row;
     this.column = column;
-    this.value = value; this.stationVisited = 0;
-    this.isObstacle = (value == 1); this.isVisited = false;
+    this.value = value;
+    this.stationVisited = 0;
+    this.isObstacle = (value == 1);
+    this.isVisited = false;
     this.path = "";
     left = right = up = down = null;
   }
@@ -92,5 +94,9 @@ public class Node {
 
   public boolean isObstacle() {
     return isObstacle;
+  }
+
+  public void setValue(int i) {
+    this.value = i;
   }
 }

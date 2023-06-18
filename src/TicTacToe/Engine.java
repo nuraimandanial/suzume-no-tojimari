@@ -195,7 +195,3 @@ public class Engine {
     return 3;
   }
 }
-
-enum Difficulty {
-  EASY, MEDIUM, HARD
-}

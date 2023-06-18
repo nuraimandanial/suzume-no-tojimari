@@ -11,9 +11,9 @@ public class GUI extends JFrame {
   private JButton[][] buttons;
   private int size;
 
-  public GUI(int sizes) {
+  public GUI(int sizes, Difficulty difficulty) {
     this.size = sizes;
-    this.game = new TicTacToe(size);
+    this.game = new TicTacToe(size, difficulty);
     this.buttons = new JButton[size][size];
 
     setLayout(new GridLayout(size, size));

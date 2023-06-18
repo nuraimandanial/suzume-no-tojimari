@@ -2,6 +2,7 @@ package Suzume;
 
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.FlowLayout;
 import java.awt.Graphics;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -15,6 +16,8 @@ import java.util.HashMap;
 import java.util.List;
 
 import javax.imageio.ImageIO;
+import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.Timer;
@@ -34,13 +37,17 @@ public class MapInterface extends JFrame {
   private ArrayList<String> directions;
   private HashMap<Integer, BufferedImage> imageCache;
   private Timer timer;
+  private Difficulty difficulty;
+  private Integer number;
+  private List<List<String>> allPaths;
 
-  public MapInterface(Node[][] map, File directory) {
+  public MapInterface(Node[][] map, File directory, List<List<String>> paths) {
     this.map = map;
     this.directory = directory;
     imageCache = new HashMap<>();
+    this.allPaths = paths;
 
-    for (int i = 0; i < 4; i++) {
+    for (int i = 0; i <= 5; i++) {
       imageCache.put(i, getImageForValue(i));
     }
 
@@ -55,7 +62,7 @@ public class MapInterface extends JFrame {
         for (int row = 0; row < map.length; row++) {
           for (int col = 0; col < map[0].length; col++) {
             int value = map[row][col].getValue();
-            BufferedImage image = imageCache.get(value);
+            BufferedImage image = imageCache.get(value == -1 ? 4 : value);
 
             g.drawImage(image, col * TILE_SIZE, row * TILE_SIZE, TILE_SIZE, TILE_SIZE, null);
           }
@@ -70,15 +77,18 @@ public class MapInterface extends JFrame {
       public Dimension getPreferredSize() {
         return new Dimension(map[0].length * TILE_SIZE, map.length * TILE_SIZE);
       }
-
     };
 
     getContentPane().add(panel);
     pack();
     setLocationRelativeTo(null);
+    selectDifficulties();
   }
 
   private BufferedImage getImageForValue(int value) {
+    if (value == 4) {
+      value = -1;
+    }
     String imagePath = "\\Texture\\" + value + ".jpg";
 
     try {
@@ -90,14 +100,46 @@ public class MapInterface extends JFrame {
     }
   }
 
-  public void readPath(List<String> paths) {
-    this.directions = new ArrayList<>(paths);
+  public void readPath(List<List<String>> paths, int number) {
+    this.directions = new ArrayList<>(paths.get(number - 1));
     index = 0;
     startMoving();
   }
 
+  private void selectDifficulties() {
+    JFrame frame = new JFrame("Select Difficulties and Path");
+    frame.setLayout(new FlowLayout());
+    frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+    frame.setSize(300, 100);
+    frame.setLocationRelativeTo(null);
+
+    JComboBox<Difficulty> d = new JComboBox<>(Difficulty.values());
+    d.setSelectedIndex(-1);
+    frame.add(d);
+
+    Integer[] list = new Integer[allPaths.size() + 1];
+    for (int i = 1; i <= allPaths.size(); i++) list[i] = i;
+    JComboBox<Integer> l= new JComboBox<>(list);
+    l.setSelectedIndex(-1);
+    frame.add(l);
+
+    JButton button = new JButton("OK");
+    button.addActionListener(new ActionListener() {
+      @Override
+      public void actionPerformed(ActionEvent e) {
+        difficulty = (Difficulty) d.getSelectedItem();
+        number = (Integer) l.getSelectedItem();
+        frame.dispose();
+        readPath(allPaths, (int) number);
+      }
+    });
+    frame.add(button);
+
+    frame.setVisible(true);
+  }
+
   private void startMoving() {
-    timer = new Timer(500, new ActionListener() {
+    timer = new Timer(400, new ActionListener() {
 
       @Override
       public void actionPerformed(ActionEvent e) {
@@ -129,6 +171,10 @@ public class MapInterface extends JFrame {
 
   private void moveLeft() {
     if (currentY - 1 >= 0) {
+      if (map[currentX][currentY].getValue() == 2) {
+        map[currentX][currentY].setValue(5);
+      }
+      else map[currentX][currentY].setValue(-1);
       currentY--;
       checkNodeValue();
     }
@@ -136,6 +182,10 @@ public class MapInterface extends JFrame {
 
   private void moveRight() {
     if (currentY + 1 < map[0].length) {
+      if (map[currentX][currentY].getValue() == 2) {
+        map[currentX][currentY].setValue(5);
+      }
+      else map[currentX][currentY].setValue(-1);
       currentY++;
       checkNodeValue();
     }
@@ -143,6 +193,10 @@ public class MapInterface extends JFrame {
 
   private void moveDown() {
     if (currentX + 1 < map.length) {
+      if (map[currentX][currentY].getValue() == 2) {
+        map[currentX][currentY].setValue(5);
+      }
+      else map[currentX][currentY].setValue(-1);
       currentX++;
       checkNodeValue();
     }
@@ -150,6 +204,10 @@ public class MapInterface extends JFrame {
 
   private void moveUp() {
     if (currentX - 1 >= 0) {
+      if (map[currentX][currentY].getValue() == 2) {
+        map[currentX][currentY].setValue(5);
+      }
+      else map[currentX][currentY].setValue(-1);
       currentX--;
       checkNodeValue();
     }
@@ -165,7 +223,7 @@ public class MapInterface extends JFrame {
   }
 
   private void reachedStations() {
-    GUI gui = new GUI(3);
+    GUI gui = new GUI(3, difficulty);
     gui.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
     gui.setSize(500, 500);
     gui.setLocationRelativeTo(null);
